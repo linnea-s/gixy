@@ -44,6 +44,16 @@ def test_add_header_always():
     assert_true(directive.always)
     assert_equals(str(directive), 'add_header X-Foo bar always;')
 
+def test_proxy_set_header():
+    config = 'proxy_set_header "X-Foo" "bar";'
+
+    directive = _get_parsed(config)
+    assert_is_instance(directive, ProxySetHeaderDirective)
+    assert_equals(directive.name, 'proxy_set_header')
+    assert_equals(directive.args, ['X-Foo', 'bar'])
+    assert_equals(directive.header, 'x-foo')
+    assert_equals(directive.value, 'bar')
+    assert_equals(str(directive), 'proxy_set_header X-Foo bar;')
 
 def test_set():
     config = 'set $foo bar;'

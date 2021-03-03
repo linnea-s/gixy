@@ -55,6 +55,13 @@ class AddHeaderDirective(Directive):
         if len(args) > 2 and args[2] == 'always':
             self.always = True
 
+class ProxySetHeaderDirective(Directive):
+    nginx_name = 'proxy_set_header'
+
+    def __init__(self, name, args):
+        super(ProxySetHeaderDirective, self).__init__(name, args)
+        self.header = args[0].lower()
+        self.value = args[1]
 
 class SetDirective(Directive):
     nginx_name = 'set'
